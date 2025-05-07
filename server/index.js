@@ -1,14 +1,6 @@
 
-//const express = require('express');
-import express from "express";
-
-const app = express();
-
-const port = 4000;
-
-app.get('/', (req, res) => {
-    return res.send('<h1>hola mi Dominicana</h1>')
-})
+import { port } from "./src/utils/keys.js";
+import { app } from "./src/main.js";
 
 app.listen(port, () => {
     console.log(`El servidor inicio correctamente en el puerto: ${port}`)
