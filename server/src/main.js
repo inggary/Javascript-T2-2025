@@ -4,5 +4,7 @@ import { pizza_routers } from "./routers/pizza_routers.js";
 
 export const app = express();
 
+app.use(express.json())
+
 app.use('/', pizza_routers)
 

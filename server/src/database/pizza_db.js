@@ -12,8 +12,11 @@ export const pizza_db = {
     ]
 }
 
-export const usuario = {
+export const usuario = []
+
+/*
+{
     tipo : '',
     sabor : ''
 }
-
+*/
