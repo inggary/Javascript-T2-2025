@@ -22,7 +22,7 @@ length(restaurantes['Ember']['horario']['6-8'])<=restaurantes['Ember']['capacida
 */
 
 
-const restaurantes = {
+export const restaurantes = {
     Ember : {
         capacidad : 3,
         horarios : {
