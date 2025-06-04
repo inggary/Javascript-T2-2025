@@ -1,14 +1,35 @@
 
 'use client'
 import { usePizza } from "@/context/pizzaContext.jsx";
+import { useRouter } from "next/navigation";
+import { borrar_orden } from "@/functions/peticiones_borrar";
+import { pizza_ordenes } from "@/functions/peticiones_sabores_pizza";
+import { useEffect, useState } from "react";
 
-export const Carrito = ({}) => {
+export const Carrito = () => {
 
-    const {isCartOpen, setCartItems, setIsCartOpen, cartItems} = usePizza();
-    
+    const {isCartOpen, setIsCartOpen} = usePizza();
+    const [cartItems, setCartItems] = useState([])
 
-    const handleDelete = (id) => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    const router = useRouter()
+
+    const peticiones = async() =>{
+
+        const res = await pizza_ordenes()
+        setCartItems(res)
+
+      }
+
+    useEffect(()=>{
+
+      peticiones()
+
+    },[isCartOpen])
+
+
+    const handleDelete = async (indice) => {
+        await borrar_orden(indice);
+        await peticiones()
     };
 
     return ( 
@@ -31,14 +52,14 @@ export const Carrito = ({}) => {
                 <p className="text-gray-500">Tu carrito está vacío.</p>
               ) : (
                 <ul className="space-y-4">
-                  {cartItems.map((item) => (
-                    <li key={item.id} className="border rounded p-3 flex justify-between items-center">
+                  {cartItems.map((item, indice) => (
+                    <li key={item} className="border rounded p-3 flex justify-between items-center">
                       <div>
-                        <h3 className="font-semibold">{item.name}</h3>
-                        <p className="text-sm text-gray-600">{item.type}</p>
+                        <h3 className="font-semibold">{item.tipo}</h3>
+                        <p className="text-sm text-gray-600">{item.sabor}</p>
                       </div>
                       <button
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(indice)}
                         className="text-red-500 hover:text-red-700 text-sm"
                       >
                         🗑️
@@ -51,6 +72,10 @@ export const Carrito = ({}) => {
 
             <div className="p-4 border-t">
               <button
+                onClick={() => {
+                  router.push('/orden')
+                  setIsCartOpen(false)
+                }}
                 className="bg-yellow-500 text-white w-full py-2 rounded font-semibold hover:bg-yellow-600 disabled:bg-yellow-300"
                 disabled={cartItems.length === 0}
               >

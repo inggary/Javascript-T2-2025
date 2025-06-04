@@ -1,26 +1,35 @@
-'use client';
-import { useState } from "react";
-import { usePizza } from "@/context/pizzaContext.jsx";
-
+'use client'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Boton_pizza } from "@/components/boton_pizza.jsx";
+import { pizza_tipos } from "@/functions/peticiones_sabores_pizza.js";
 
 export default function Home () {
 
-    //variables
-    const [nextId, setNextId] = useState(1);
-    const {setCartItems} = usePizza();
+    const [datos, setDatos] = useState([])
+    const router = useRouter()
+
+    useEffect(() =>{
+
+        const peticiones = async () => {
+            const resultado = await pizza_tipos()
+            console.log(resultado)
+            setDatos(resultado)
+        }
+
+        peticiones()
+        
+
+    },[])
+
 
 
     //funciones
 
-    const handleAddToCart = () => {
-        const newPizza = {
-        id: nextId,
-        name: 'Pizza Mediterránea',
-        type: 'Vegetariana',
-        };
+    const accion_a_realizar = (tipo_pizza) => {
 
-        setCartItems((prev) => [...prev, newPizza]);
-        setNextId((prev) => prev + 1);
+       router.push(`/sabores/${tipo_pizza}`)
+
     };
 
      
@@ -28,14 +37,18 @@ export default function Home () {
     //pagina
 
     return (
-            <div
-            onClick={handleAddToCart}
-            className="cursor-pointer bg-white rounded-2xl shadow-lg p-8 w-80 flex flex-col items-center gap-4 hover:shadow-2xl transition"
-            >
-                <div className="text-6xl">🍕</div>
-                <h2 className="text-xl font-semibold text-gray-800">Pizza Mediterránea</h2>
-                <p className="text-sm text-gray-500">Haz clic para agregar al carrito</p>
-            </div>
+           <>
+                {
+                datos.map((tipo_pizza)=>{
+                        return(
+                        <div key={tipo_pizza} className="px-4 mb-4">
+                        <Boton_pizza  nombre_pizza={tipo_pizza} 
+                        accion_a_realizar={accion_a_realizar} />
+                        </div>
+                    )
+                })
+                }
+           </>
 
     );
  

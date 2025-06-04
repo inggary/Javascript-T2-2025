@@ -10,7 +10,7 @@ export const Navbar = () => {
 
     return (
         <header className="bg-yellow-500 text-white px-6 py-4 flex justify-between items-center shadow">
-            <h1 className="text-xl font-bold">Bella Napoli</h1>
+            <a href='/' className="text-xl font-bold">Bella Napoli</a>
             <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative bg-white text-yellow-600 font-semibold px-4 py-2 rounded shadow hover:bg-yellow-100"
