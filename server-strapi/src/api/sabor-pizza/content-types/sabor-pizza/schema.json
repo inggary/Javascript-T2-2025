@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sabor_pizzas",
+  "info": {
+    "singularName": "sabor-pizza",
+    "pluralName": "sabor-pizzas",
+    "displayName": "SaborPizza"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "SaborPizza": {
+      "type": "string",
+      "required": true
+    },
+    "Imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "tipo_pizza": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tipo-pizza.tipo-pizza",
+      "inversedBy": "sabor_pizzas"
+    }
+  }
+}

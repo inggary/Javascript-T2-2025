@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_pizzas",
+  "info": {
+    "singularName": "tipo-pizza",
+    "pluralName": "tipo-pizzas",
+    "displayName": "TipoPizza"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "NombreTipo": {
+      "type": "string",
+      "required": true
+    },
+    "Imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "sabor_pizzas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sabor-pizza.sabor-pizza",
+      "mappedBy": "tipo_pizza"
+    }
+  }
+}
