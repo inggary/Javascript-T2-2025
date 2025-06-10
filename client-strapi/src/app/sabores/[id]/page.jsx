@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 
 
 
-export default function Menu ({params}) {
+export default function Menu () {
 
     const router = useRouter()
 
@@ -30,16 +30,17 @@ export default function Menu ({params}) {
 
     },[])
 
-    const accion_a_realizar = async (sabor) =>{
+    const accion_a_realizar = async (id_sabor) =>{
 
         const enviar_body = {
-            tipo : id,
-            sabor : sabor
+            data: {
+                sabor_pizza: [id_sabor]
+            }
         }
 
         const res = await post_orden(enviar_body)
 
-        if(res) router.push('/')
+        router.push('/')
 
     }
 

@@ -32,7 +32,7 @@ export const pizza_sabores = async (id_tipo_pizza) => {
     for (let x in data){
         respuesta.menu_titulo = data[x].tipo_pizza.NombreTipo
         respuesta.datos.push({
-            documentId : data[x].documentId,
+            id : data[x].id,
             SaborPizza : data[x].SaborPizza,
             imagen : `${url_raiz}/${data[x].Imagen.url.slice(1)}`
         })
@@ -45,8 +45,19 @@ export const pizza_sabores = async (id_tipo_pizza) => {
 
 export const pizza_ordenes = async () => {
 
-    const datos = await get_peticion(`/orden-cliente`)
-    return datos.values
+    const {data} = await get_peticion(`/ordenes-clientes?populate[sabor_pizza][populate]=tipo_pizza`)
+    
+    const respuesta = []
+
+    for (let x in data){
+        respuesta.push({
+            id : data[x].documentId,
+            tipo : data[x].sabor_pizza.tipo_pizza.NombreTipo,
+            sabor : data[x].sabor_pizza.SaborPizza
+        })
+    }
+
+    return respuesta
 
 }
 

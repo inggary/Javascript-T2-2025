@@ -14,10 +14,16 @@ export const get_peticion = async (parameter) => {
 export const post_peticion = async (parameter, body) => {
 
     //${url_raiz}${parameter}
-
-    return await axios.post(`${url_raiz}${parameter}`, body)
+try {
+    const res1 = await axios.post(`${url_raiz}/api${parameter}`, body, config)
     .then(res =>  res.data)
     .catch(err => console.log(err))
+    
+    return res1.data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
 
 }
 
@@ -27,7 +33,7 @@ export const delete_peticion = async (parameter) => {
 
     //${url_raiz}${parameter}
 
-    return await axios.delete(`${url_raiz}${parameter}`)
+    return await axios.delete(`${url_raiz}/api${parameter}`, config)
     .then(res =>  res.data)
     .catch(err => console.log(err))
 

@@ -373,6 +373,38 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrdenesClienteOrdenesCliente
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ordenes_clientes';
+  info: {
+    displayName: 'OrdenesCliente';
+    pluralName: 'ordenes-clientes';
+    singularName: 'ordenes-cliente';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ordenes-cliente.ordenes-cliente'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sabor_pizza: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::sabor-pizza.sabor-pizza'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSaborPizzaSaborPizza extends Struct.CollectionTypeSchema {
   collectionName: 'sabor_pizzas';
   info: {
@@ -394,6 +426,10 @@ export interface ApiSaborPizzaSaborPizza extends Struct.CollectionTypeSchema {
       'api::sabor-pizza.sabor-pizza'
     > &
       Schema.Attribute.Private;
+    ordenes_clientes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ordenes-cliente.ordenes-cliente'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     SaborPizza: Schema.Attribute.String & Schema.Attribute.Required;
     tipo_pizza: Schema.Attribute.Relation<
@@ -948,6 +984,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ordenes-cliente.ordenes-cliente': ApiOrdenesClienteOrdenesCliente;
       'api::sabor-pizza.sabor-pizza': ApiSaborPizzaSaborPizza;
       'api::tipo-pizza.tipo-pizza': ApiTipoPizzaTipoPizza;
       'plugin::content-releases.release': PluginContentReleasesRelease;

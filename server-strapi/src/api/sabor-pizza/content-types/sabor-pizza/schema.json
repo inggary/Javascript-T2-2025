@@ -28,6 +28,12 @@
       "relation": "manyToOne",
       "target": "api::tipo-pizza.tipo-pizza",
       "inversedBy": "sabor_pizzas"
+    },
+    "ordenes_clientes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ordenes-cliente.ordenes-cliente",
+      "mappedBy": "sabor_pizza"
     }
   }
 }

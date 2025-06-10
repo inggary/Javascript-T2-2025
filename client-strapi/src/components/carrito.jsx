@@ -53,13 +53,13 @@ export const Carrito = () => {
               ) : (
                 <ul className="space-y-4">
                   {cartItems.map((item, indice) => (
-                    <li key={item} className="border rounded p-3 flex justify-between items-center">
+                    <li key={item.id} className="border rounded p-3 flex justify-between items-center">
                       <div>
                         <h3 className="font-semibold">{item.tipo}</h3>
                         <p className="text-sm text-gray-600">{item.sabor}</p>
                       </div>
                       <button
-                        onClick={() => handleDelete(indice)}
+                        onClick={() => handleDelete(item.id)}
                         className="text-red-500 hover:text-red-700 text-sm"
                       >
                         🗑️

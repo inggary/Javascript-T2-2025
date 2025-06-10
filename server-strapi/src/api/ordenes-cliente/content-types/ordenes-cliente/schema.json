@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ordenes_clientes",
+  "info": {
+    "singularName": "ordenes-cliente",
+    "pluralName": "ordenes-clientes",
+    "displayName": "OrdenesCliente"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sabor_pizza": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sabor-pizza.sabor-pizza",
+      "inversedBy": "ordenes_clientes"
+    }
+  }
+}
